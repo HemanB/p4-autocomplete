@@ -36,7 +36,7 @@ public class HashListAutocomplete implements Autocompletor {
             Term term = new Term(word, weight);
             int greatestIndex = Math.min(word.length(), MAX_PREFIX);
 
-            for (int j = 0; j < greatestIndex; j++) {
+            for (int j = 0; j <= greatestIndex; j++) {
                 String sub = word.substring(0, j);
                 myMap.putIfAbsent(sub, new ArrayList<>());
                 myMap.get(sub).add(term);
