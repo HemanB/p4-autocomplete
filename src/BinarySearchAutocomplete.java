@@ -102,7 +102,9 @@ public class BinarySearchAutocomplete implements Autocompletor {
 		if (k < 0) {
 			throw new IllegalArgumentException("Illegal value of k:"+k);
 		}
-
+		if (k == 0) {
+			return new ArrayList<>();
+		}
 		Term dummy = new Term(prefix,0);
 		PrefixComparator comp = PrefixComparator.getComparator(prefix.length());
 		int first = firstIndexOf(myTerms, dummy, comp);
@@ -114,19 +116,16 @@ public class BinarySearchAutocomplete implements Autocompletor {
 
 		// write code here for P5 assignment
 
-		if (k == 0) {
-			return new ArrayList<>();
-		}
-
 		PriorityQueue<Term> pQueue = new PriorityQueue<>((last - first) + 1, Comparator.comparing(Term::getWeight));
 
-		for (Term nTerm : myTerms) {
+		for (int i = first; i <= last; i++) {
+			Term t = myTerms[i];
 			if(k > pQueue.size()) {
-				pQueue.add(nTerm);
+				pQueue.add(t);
 			} else {
-				if (pQueue.peek().getWeight() < nTerm.getWeight()) {
+				if (pQueue.peek().getWeight() < t.getWeight()) {
 					pQueue.remove();
-					pQueue.add(nTerm);
+					pQueue.add(t);
 				}
 			}
 		}
