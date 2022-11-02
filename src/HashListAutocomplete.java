@@ -23,7 +23,6 @@ public class HashListAutocomplete implements Autocompletor {
         }
         List<Term> matches = myMap.get(prefix);
         int min = Math.min(k, matches.size());
-
         return myMap.get(prefix).subList(0, min);
     }
 
@@ -60,7 +59,7 @@ public class HashListAutocomplete implements Autocompletor {
         }
 
         for (Term t : terms) {
-            mySize += t.getWord().length() * BYTES_PER_CHAR + BYTES_PER_DOUBLE;
+            mySize += (t.getWord().length() * BYTES_PER_CHAR) + BYTES_PER_DOUBLE;
         }
         return mySize;
     }

@@ -47,8 +47,11 @@ public class    PrefixComparator implements Comparator<Term> {
         int x = myPrefixSize;
 
         for (int i = 0; i < x; i++) {
+            if (i == V.length() || i == W.length()) {
+                return (V.length() - W.length());
+            }
             if (V.charAt(i) == W.charAt(i)) {
-
+                continue;
             } else if (V.charAt(i) != W.charAt(i)) {
                 return V.charAt(i) - W.charAt(i);
             }

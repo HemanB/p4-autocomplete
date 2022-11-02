@@ -113,12 +113,17 @@ public class BinarySearchAutocomplete implements Autocompletor {
 		}
 
 		// write code here for P5 assignment
+
+		if (k == 0) {
+			return new ArrayList<>();
+		}
+
 		PriorityQueue<Term> pQueue = new PriorityQueue<>((last - first) + 1, Comparator.comparing(Term::getWeight));
 
 		for (Term nTerm : myTerms) {
 			if(k > pQueue.size()) {
 				pQueue.add(nTerm);
-			} else if ((k < pQueue.size()) && (k > 0)) {
+			} else {
 				if (pQueue.peek().getWeight() < nTerm.getWeight()) {
 					pQueue.remove();
 					pQueue.add(nTerm);
@@ -149,8 +154,7 @@ public class BinarySearchAutocomplete implements Autocompletor {
 		if (mySize == 0) {
 			
 			for(Term t : myTerms) {
-			    mySize += BYTES_PER_DOUBLE + 
-			    		  BYTES_PER_CHAR*t.getWord().length();	
+			    mySize += BYTES_PER_DOUBLE + BYTES_PER_CHAR*t.getWord().length();	
 			}
 		}
 		return mySize;
