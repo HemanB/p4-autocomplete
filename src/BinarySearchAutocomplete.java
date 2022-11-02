@@ -116,25 +116,23 @@ public class BinarySearchAutocomplete implements Autocompletor {
 
 		// write code here for P5 assignment
 
-		PriorityQueue<Term> pQueue = new PriorityQueue<>((last - first) + 1, Comparator.comparing(Term::getWeight));
+		ArrayList <Term> values = new ArrayList<>();
 
 		for (int i = first; i <= last; i++) {
-			Term t = myTerms[i];
-			if(k > pQueue.size()) {
-				pQueue.add(t);
-			} else {
-				if (pQueue.peek().getWeight() < t.getWeight()) {
-					pQueue.remove();
-					pQueue.add(t);
-				}
-			}
+			values.add(myTerms[i]);
 		}
 
-		LinkedList<Term> values = new LinkedList<>();
-		for (int j = 0; j < pQueue.size(); j++) {
-			values.addFirst(pQueue.remove());
+		Collections.sort(values, Comparator.comparing(Term::getWeight).reversed());
+
+		if (values.size() < k) {
+			return values;
 		}
-		return values;
+
+		ArrayList <Term> keys = new ArrayList<>();
+		for (int j = 0; j < k; j++) {
+			keys.add(values.get(j));
+		}
+		return keys;
 	}
 
 	@Override
